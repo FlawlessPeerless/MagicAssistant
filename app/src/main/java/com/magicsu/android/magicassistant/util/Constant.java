@@ -10,4 +10,7 @@ package com.magicsu.android.magicassistant.util;
  */
 
 public class Constant {
+    public static final int HANDLER_SPLASH = 1001;
+
+    public static final String SHARED_IS_FIRST = "is_first";
 }

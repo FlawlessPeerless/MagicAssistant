@@ -13,14 +13,19 @@
         <activity
             android:label="@string/activity_label_main"
             android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:label="@string/activity_label_setting"
             android:name=".ui.SettingActivity" />
+        <activity
+            android:theme="@style/AppTheme.NoTitleBar"
+            android:name=".ui.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.GuideActivity"/>
     </application>
 
 </manifest>
