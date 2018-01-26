@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="activity_tab_titles">
+        <item>服务管家</item>
+        <item>微信精选</item>
+        <item>美女社区</item>
+        <item>个人中心</item>
+    </string-array>
+    <string name="activity_label_main">智能管家</string>
+    <string name="activity_label_setting">设置</string>
+</resources>
