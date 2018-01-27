@@ -9,4 +9,5 @@
     <string name="app_name">智能管家</string>
     <string name="activity_label_main">智能管家</string>
     <string name="activity_label_setting">设置</string>
+    <string name="activity_guide_button_text">进入主页</string>
 </resources>

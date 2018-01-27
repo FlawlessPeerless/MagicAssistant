@@ -91,7 +91,7 @@ public class SplashActivity extends AppCompatActivity {
                     if (activity.isFirst()) {
                         activity.startActivity(new Intent(activity, GuideActivity.class));
                     } else {
-                        activity.startActivity(new Intent(activity, MainActivity.class));
+                        activity.startActivity(new Intent(activity, GuideActivity.class));
                     }
                     activity.finish();
                     break;
