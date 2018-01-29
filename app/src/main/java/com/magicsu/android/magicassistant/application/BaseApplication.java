@@ -2,6 +2,10 @@ package com.magicsu.android.magicassistant.application;
 
 import android.app.Application;
 
+import com.magicsu.android.magicassistant.util.Constant;
+
+import cn.bmob.v3.Bmob;
+
 /**
  * project: MagicAssistant
  * package: com.magicsu.android.magicassistant.application
@@ -15,5 +19,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 初始化Bmob
+        Bmob.initialize(this, Constant.BMOB_APP_ID);
     }
 }

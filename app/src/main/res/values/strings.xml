@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MagicAssistant</string>
+    <string name="activity_login_button_register">注册</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="text_register_hint">注册成功需要前往邮箱验证，否则无法登录！</string>
 </resources>
