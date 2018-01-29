@@ -1,5 +1,6 @@
 package com.magicsu.android.magicassistant.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.button_forget_password)
     TextView mForgetPwdButton;
 
-    private CustomDialog mCustomDialog;
+    private Dialog mCustomDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             mEditPassword.setText(SP.getString(this, Constant.LOGIN_REMEMBER_PASSWORD, ""));
         }
 
-        mCustomDialog = new CustomDialog(this,100,100, R.layout.dialog_loading, R.style.AppTheme_Dialog, Gravity.CENTER, R.style.pop_anim_style);
+        mCustomDialog = CustomDialog.create(this, R.layout.dialog_loading);//new CustomDialog(this,100,100, R.layout.dialog_loading, R.style.AppTheme_Dialog, Gravity.CENTER, R.style.pop_anim_style);
         mCustomDialog.setCancelable(false);
     }
 
@@ -105,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void done(User user, BmobException e) {
-                // mCustomDialog.dismiss();
+                 mCustomDialog.dismiss();
                 if (e == null) {
                     // 成功
                     if (!user.getEmailVerified()) {
@@ -113,8 +114,8 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                         return;
                     }
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    finish();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
                 } else {
                     // 失败
                     Toast.makeText(LoginActivity.this, "登录失败："+e.toString(), Toast.LENGTH_SHORT)
