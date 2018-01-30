@@ -59,7 +59,7 @@ public class CustomDialog {
             params.gravity = Gravity.BOTTOM;
             dialogWindow.setAttributes(params);
             dialogWindow.setWindowAnimations(R.style.WindowAnimationTransition);
-            setCancelable(true);
+            setCancelable(false);
         }
     }
 }
