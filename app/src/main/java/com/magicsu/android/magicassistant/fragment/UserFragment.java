@@ -1,9 +1,16 @@
 package com.magicsu.android.magicassistant.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +25,9 @@ import com.magicsu.android.magicassistant.ui.LoginActivity;
 import com.magicsu.android.magicassistant.util.L;
 import com.magicsu.android.magicassistant.view.CustomDialog;
 import com.magicsu.android.magicassistant.view.CustomDialog.BottomDialog;
+
+import java.io.File;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +48,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class UserFragment extends Fragment implements View.OnClickListener {
+    public static final String PHOTO_IMAGE_FILE_NAME = "fileImg.jpg";
+    public static final int REQUEST_CODE_CAMERA = 201;
+    public static final int REQUEST_CODE_ALBUM = 202;
+    public static final int REQUEST_CODE_CROP = 203;
 
     @BindView(R.id.profile_image)
     CircleImageView mCircleImageView;
@@ -56,6 +70,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     Button mLogOutButton;
 
     private BottomDialog mBottomDialog;
+    private Uri mImageUri;
 
     @Nullable
     @Override
@@ -176,7 +191,43 @@ public class UserFragment extends Fragment implements View.OnClickListener {
      * 打开相册
      */
     private void dialogOpenAlbum() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        startActivityForResult(intent, REQUEST_CODE_ALBUM);
+        mBottomDialog.dismiss();
+    }
 
+    /**
+     * 打开相机
+     */
+    private void dialogOpenCamera() {
+        File outputImage = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), PHOTO_IMAGE_FILE_NAME);
+        try {
+            if (outputImage.exists()) {
+                outputImage.delete();
+            }
+            outputImage.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mImageUri = FileProvider.getUriForFile(getContext(),"com.android.magicassistant.fileprovider", outputImage);
+        } else {
+            mImageUri = Uri.fromFile(outputImage);
+        }
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+        startActivityForResult(intent, REQUEST_CODE_CAMERA);
+        mBottomDialog.dismiss();
     }
 
     @Override
@@ -189,8 +240,42 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 dialogOpenAlbum();
                 break;
             case R.id.button_take_photo:
-                // todo拍照功能
+                dialogOpenCamera();
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_CANCELED) return;
+        switch (requestCode) {
+            case REQUEST_CODE_CAMERA:
+                if (resultCode == Activity.RESULT_OK) {
+                    imageResizer(mImageUri);
+                }
+
+                break;
+            case REQUEST_CODE_ALBUM:
+                // 相册数据
+                imageResizer(data.getData());
+                break;
+            case REQUEST_CODE_CROP:
+                break;
+        }
+    }
+
+    /**
+     * 图片裁剪
+     */
+    private void imageResizer(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop","true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 320);
+        intent.putExtra("outputY", 320);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        startActivityForResult(intent, REQUEST_CODE_CROP);
     }
 }
