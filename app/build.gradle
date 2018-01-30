@@ -36,5 +36,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Bmob
     implementation 'cn.bmob.android:bmob-sdk:3.5.5'
+    // circle image view
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
 }

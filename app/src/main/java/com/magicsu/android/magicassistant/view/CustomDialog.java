@@ -2,8 +2,10 @@ package com.magicsu.android.magicassistant.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.transition.TransitionInflater;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +28,38 @@ public class CustomDialog {
         Dialog progressDialog = new Dialog(context);
         progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         View view = LayoutInflater.from(context).inflate(layout, null, false);
-        WindowManager.LayoutParams layoutParams = progressDialog.getWindow().getAttributes();
-        progressDialog.getWindow().setAttributes(layoutParams);
         progressDialog.setContentView(view);
         return progressDialog;
+    }
+
+    public static BottomDialog createBottomDialog(Context context, View layout) {
+        BottomDialog dialog = new BottomDialog(context);
+        dialog.setContentView(layout);
+        return dialog;
+    }
+
+    public static class BottomDialog extends Dialog {
+
+        public BottomDialog(@NonNull Context context) {
+            this(context, R.style.AppTheme_Dialog);
+        }
+
+        public BottomDialog(@NonNull Context context, int themeResId) {
+            super(context, themeResId);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            Window dialogWindow = getWindow();
+
+            WindowManager.LayoutParams params = dialogWindow.getAttributes();
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.gravity = Gravity.BOTTOM;
+            dialogWindow.setAttributes(params);
+            dialogWindow.setWindowAnimations(R.style.WindowAnimationTransition);
+            setCancelable(true);
+        }
     }
 }

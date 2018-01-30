@@ -83,7 +83,7 @@ public class RegisterActivity extends BaseActivity {
 
          // 判断是否为空
          if (TextUtils.isEmpty(description)) {
-             description = "这个人很懒，什么也没用留下";
+             description = "这个人很懒，什么也没有留下";
          }
          if (TextUtils.isEmpty(username)
              | TextUtils.isEmpty(age)
