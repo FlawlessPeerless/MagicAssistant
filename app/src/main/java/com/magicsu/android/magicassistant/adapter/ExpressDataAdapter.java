@@ -39,7 +39,7 @@ public class ExpressDataAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        // TODO 完成数据绑定渲染
     }
 
     @Override
