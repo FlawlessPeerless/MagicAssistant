@@ -47,6 +47,8 @@
             android:name=".ui.LoginActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.ForgetPasswordActivity" />
+        <activity android:label="@string/text_express_check"
+            android:name=".ui.ExpressCheckActivity" />
 
         <provider
             android:exported="false"

@@ -25,4 +25,9 @@ public class Constant {
     public static final String LOGIN_REMEMBER_PASSWORD = "remember_password";
 
     public static final String PORTRAIT_PNG = "setting_portrait";
+
+    // 聚合app key
+    public static final String JUHE_APP_KEY = "889d6566158cbcedbe486316c685bb9d";
+
+
 }

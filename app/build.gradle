@@ -35,8 +35,13 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Bmob
-    implementation 'cn.bmob.android:bmob-sdk:3.5.5'
+    implementation ('cn.bmob.android:bmob-sdk:3.5.5'){
+        exclude group: 'io.reactivex'
+    }
     // circle image view
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-
+    // rx volley
+    implementation ('com.kymjs.rxvolley:rxvolley:1.1.4') {
+        exclude group: 'io.reactivex'
+    }
 }

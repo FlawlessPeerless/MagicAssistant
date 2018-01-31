@@ -20,10 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.magicsu.android.magicassistant.R;
 import com.magicsu.android.magicassistant.entity.User;
+import com.magicsu.android.magicassistant.ui.ExpressCheckActivity;
 import com.magicsu.android.magicassistant.ui.LoginActivity;
 import com.magicsu.android.magicassistant.util.Constant;
 import com.magicsu.android.magicassistant.util.L;
@@ -73,6 +75,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     EditText mEditDescription;
     @BindView(R.id.button_sure_modify)
     Button mModifyButton;
+
+    @BindView(R.id.text_view_recruitment)
+    TextView mRecruitmentTextView;
+    @BindView(R.id.text_view_phone_query)
+    TextView mPhoneQueryTextView;
 
     @BindView(R.id.button_log_out)
     Button mLogOutButton;
@@ -196,6 +203,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
      */
     void dialogCancel() {
         mBottomDialog.dismiss();
+    }
+
+    /**
+     * 物流查询
+     */
+    @OnClick(R.id.text_view_recruitment)
+    void goToRecruitment(View view) {
+        startActivity(new Intent(getActivity(), ExpressCheckActivity.class));
     }
 
     /**
