@@ -3,6 +3,8 @@ package com.magicsu.android.magicassistant.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +25,15 @@ import android.widget.Toast;
 import com.magicsu.android.magicassistant.R;
 import com.magicsu.android.magicassistant.entity.User;
 import com.magicsu.android.magicassistant.ui.LoginActivity;
+import com.magicsu.android.magicassistant.util.Constant;
 import com.magicsu.android.magicassistant.util.L;
+import com.magicsu.android.magicassistant.util.SP;
+import com.magicsu.android.magicassistant.util.UtilTool;
 import com.magicsu.android.magicassistant.view.CustomDialog;
 import com.magicsu.android.magicassistant.view.CustomDialog.BottomDialog;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -103,6 +111,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         albumButton.setOnClickListener(this);
 
         mBottomDialog = CustomDialog.createBottomDialog(getContext(), dialogView);
+
+        // 检查默认头像
+        UtilTool.getImageFromSP(getContext(), mCircleImageView);
     }
 
     /**
@@ -231,6 +242,13 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 存储头像
+        UtilTool.putImageToSP(getContext(), mCircleImageView);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_cancel:
@@ -253,13 +271,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 if (resultCode == Activity.RESULT_OK) {
                     imageResizer(mImageUri);
                 }
-
                 break;
             case REQUEST_CODE_ALBUM:
                 // 相册数据
                 imageResizer(data.getData());
                 break;
             case REQUEST_CODE_CROP:
+                if (data  == null) return;
+                setImageToView(data);
                 break;
         }
     }
@@ -275,7 +294,17 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         intent.putExtra("aspectY", 1);
         intent.putExtra("outputX", 320);
         intent.putExtra("outputY", 320);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("return-data", true);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(intent, REQUEST_CODE_CROP);
     }
+
+    private void setImageToView(Intent data) {
+        Bundle bundle = data.getExtras();
+        if (bundle != null) {
+            Bitmap bitmap = bundle.getParcelable("data");
+            mCircleImageView.setImageBitmap(bitmap);
+        }
+    }
 }
+

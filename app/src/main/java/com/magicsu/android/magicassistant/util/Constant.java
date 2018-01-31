@@ -23,4 +23,6 @@ public class Constant {
     public static final String LOGIN_REMEMBER_USERNAME = "remember_username";
     // 登录 - 记住密码
     public static final String LOGIN_REMEMBER_PASSWORD = "remember_password";
+
+    public static final String PORTRAIT_PNG = "setting_portrait";
 }
