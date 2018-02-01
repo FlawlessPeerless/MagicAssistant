@@ -48,5 +48,7 @@
     <string name="text_express_number">快递单号</string>
     <string name="text_express_company">快递公司</string>
     <string name="text_search">查询</string>
+    <string name="text_time_point">时间点</string>
+    <string name="hit_phone_query">请输入查询号码</string>
 
 </resources>

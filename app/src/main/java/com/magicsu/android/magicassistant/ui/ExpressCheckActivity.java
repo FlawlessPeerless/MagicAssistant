@@ -3,6 +3,7 @@ package com.magicsu.android.magicassistant.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,8 +14,17 @@ import android.widget.Toast;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 import com.magicsu.android.magicassistant.R;
+import com.magicsu.android.magicassistant.adapter.ExpressDataAdapter;
+import com.magicsu.android.magicassistant.entity.ExpressData;
 import com.magicsu.android.magicassistant.util.Constant;
 import com.magicsu.android.magicassistant.util.L;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +39,7 @@ import butterknife.OnClick;
  * description: 快递查询
  */
 
-public class ExpressCheckActivity extends AppCompatActivity {
+public class ExpressCheckActivity extends BaseActivity {
     @BindView(R.id.edit_express_company_name)
     EditText mEditCompany;
     @BindView(R.id.edit_express_number)
@@ -73,16 +83,38 @@ public class ExpressCheckActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String t) {
                 L.i(t);
-                parseJson(t);
+                ArrayList<ExpressData> list = parseJson(t);
+                ExpressDataAdapter adapter = new ExpressDataAdapter(ExpressCheckActivity.this, list);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(ExpressCheckActivity.this));
+                mRecyclerView.setAdapter(adapter);
             }
         });
     }
 
     /**
      * 解析数据
-     * @param data json字符串
+     * @param json json字符串
+     * @return 数据实体类对象
      */
-    private void parseJson(String data) {
+    private ArrayList<ExpressData> parseJson(String json) {
+        ArrayList<ExpressData> list = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject result = jsonObject.getJSONObject("result");
+            JSONArray jsonArray = result.getJSONArray("list");
 
+            for (int i = jsonArray.length()-1; i > 0; i--) {
+                JSONObject jsonData = (JSONObject) jsonArray.get(i);
+                ExpressData data = new ExpressData();
+                data.setRemark(jsonData.getString("remark"));
+                data.setZone(jsonData.getString("zone"));
+                data.setDatetime(jsonData.getString("datetime"));
+                list.add(data);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
