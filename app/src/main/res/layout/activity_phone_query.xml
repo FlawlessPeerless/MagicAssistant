@@ -9,14 +9,18 @@
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/edit_phone"
+        android:inputType="text"
         android:hint="@string/hit_phone_query"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:ignore="TextFields" />
 
     <ImageView
+        android:id="@+id/operator_image"
         tools:src="@drawable/china_telecom"
         android:layout_width="300dp"
-        android:layout_height="150dp" />
+        android:layout_height="160dp" />
     <TextView
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
@@ -37,41 +41,44 @@
             android:id="@+id/btn_1"
             android:textSize="24sp"
             android:text="1"
-            app:layout_column="0"
-            app:layout_columnSpan="1"
             app:layout_row="0"
             app:layout_rowSpan="1"
+            app:layout_column="0"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/btn_2"
             android:textSize="24sp"
             android:text="2"
-            app:layout_column="1"
-            app:layout_columnSpan="1"
             app:layout_row="0"
             app:layout_rowSpan="1"
+            app:layout_column="1"
+            app:layout_columnSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/btn_3"
             android:textSize="24sp"
-            app:layout_column="2"
-            app:layout_columnSpan="1"
             app:layout_row="0"
             app:layout_rowSpan="1"
+            app:layout_column="2"
+            app:layout_columnSpan="1"
             app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
             android:text="3" />
 
         <Button
+            app:layout_row="0"
+            app:layout_rowSpan="1"
+            app:layout_column="3"
+            app:layout_columnSpan="1"
             android:id="@+id/btn_del"
             android:textSize="24sp"
             android:text="del"
-            app:layout_column="3"
-            app:layout_columnSpan="1"
             app:layout_columnWeight="1"
-            app:layout_row="0"
-            app:layout_rowSpan="1"
             app:layout_rowWeight="1" />
 
         <!--第二行-->
@@ -83,6 +90,7 @@
             app:layout_columnSpan="1"
             app:layout_row="1"
             app:layout_rowSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
@@ -93,6 +101,7 @@
             app:layout_columnSpan="1"
             app:layout_row="1"
             app:layout_rowSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
@@ -103,6 +112,7 @@
             app:layout_columnSpan="1"
             app:layout_row="1"
             app:layout_rowSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
@@ -110,10 +120,10 @@
             android:textSize="24sp"
             app:layout_column="3"
             app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
             app:layout_row="1"
             app:layout_rowSpan="1"
             app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
             android:text="0" />
 
         <!--第三行-->
@@ -125,6 +135,7 @@
             app:layout_columnSpan="1"
             app:layout_row="2"
             app:layout_rowSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
@@ -135,6 +146,7 @@
             app:layout_columnSpan="1"
             app:layout_row="2"
             app:layout_rowSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
@@ -145,6 +157,7 @@
             app:layout_columnSpan="1"
             app:layout_row="2"
             app:layout_rowSpan="1"
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
@@ -152,10 +165,10 @@
             android:textSize="24sp"
             app:layout_column="3"
             app:layout_columnSpan="1"
-            app:layout_columnWeight="1"
             app:layout_row="2"
             app:layout_rowSpan="1"
             app:layout_rowWeight="1"
+            app:layout_columnWeight="1"
             android:text="查询" />
 
 
