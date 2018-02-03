@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * description: 快递查询
  */
 
-public class ExpressCheckActivity extends AppCompatActivity {
+public class ExpressCheckActivity extends BaseActivity {
     @BindView(R.id.edit_express_company_name)
     EditText mEditCompany;
     @BindView(R.id.edit_express_number)
