@@ -5,11 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.magicsu.android.magicassistant.R;
 import com.magicsu.android.magicassistant.entity.ExpressData;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * project: MagicAssistant
@@ -39,7 +43,9 @@ public class ExpressDataAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        // TODO 完成数据绑定渲染
+        ExpressDataViewHolder viewHolder = (ExpressDataViewHolder) holder;
+        viewHolder.bindHolder(mDataList.get(position));
+
     }
 
     @Override
@@ -48,9 +54,24 @@ public class ExpressDataAdapter extends RecyclerView.Adapter {
     }
 
     public class ExpressDataViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.text_view_description)
+        TextView mTextViewDescription;
+        @BindView(R.id.text_view_zone)
+        TextView mTextViewZone;
+        @BindView(R.id.text_view_datetime)
+        TextView mTextViewDatetime;
 
         public ExpressDataViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
+
+        public void bindHolder(ExpressData data) {
+            mTextViewDescription.setText(data.getRemark());
+            mTextViewZone.setText(data.getZone());
+            mTextViewDatetime.setText(data.getDatetime());
+        }
+
+
     }
 }

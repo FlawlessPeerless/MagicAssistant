@@ -49,6 +49,7 @@
         <activity android:name=".ui.ForgetPasswordActivity" />
         <activity android:label="@string/text_express_check"
             android:name=".ui.ExpressCheckActivity" />
+        <activity android:name=".ui.PhoneQueryActivity" />
 
         <provider
             android:exported="false"

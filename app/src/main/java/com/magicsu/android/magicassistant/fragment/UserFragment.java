@@ -27,6 +27,7 @@ import com.magicsu.android.magicassistant.R;
 import com.magicsu.android.magicassistant.entity.User;
 import com.magicsu.android.magicassistant.ui.ExpressCheckActivity;
 import com.magicsu.android.magicassistant.ui.LoginActivity;
+import com.magicsu.android.magicassistant.ui.PhoneQueryActivity;
 import com.magicsu.android.magicassistant.util.Constant;
 import com.magicsu.android.magicassistant.util.L;
 import com.magicsu.android.magicassistant.util.SP;
@@ -211,6 +212,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     @OnClick(R.id.text_view_recruitment)
     void goToRecruitment(View view) {
         startActivity(new Intent(getActivity(), ExpressCheckActivity.class));
+    }
+
+    /**
+     * 跳转归属地查询
+     * @param view 视图
+     */
+    @OnClick(R.id.text_view_phone_query)
+    void goToPhoneQuery(View view) {
+        startActivity(new Intent(getActivity(), PhoneQueryActivity.class));
     }
 
     /**
