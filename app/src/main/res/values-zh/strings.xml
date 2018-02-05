@@ -50,5 +50,7 @@
     <string name="text_search">查询</string>
     <string name="text_time_point">时间点</string>
     <string name="hit_phone_query">请输入查询号码</string>
+    <string name="hint_input_text">输入文字</string>
+    <string name="text_send">发送</string>
 
 </resources>

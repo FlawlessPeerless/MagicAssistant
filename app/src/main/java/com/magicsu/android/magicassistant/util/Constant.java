@@ -29,5 +29,8 @@ public class Constant {
     // 聚合app key
     public static final String JUHE_APP_KEY = "889d6566158cbcedbe486316c685bb9d";
 
+    // 聚合机器人聊天app key
+    public static final String JUEH_CHAT_ROBORT_KEY = "7a48539921338ef90866922b21e25f6d";
+
 
 }

@@ -25,13 +25,10 @@ import butterknife.ButterKnife;
  */
 
 public class ExpressDataAdapter extends RecyclerView.Adapter {
-    private Context mContext;
     private List<ExpressData> mDataList;
     private LayoutInflater mLayoutInflater;
 
-
     public ExpressDataAdapter(Context context, List<ExpressData> list) {
-        mContext = context;
         mDataList = list;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -53,7 +50,7 @@ public class ExpressDataAdapter extends RecyclerView.Adapter {
         return mDataList.size();
     }
 
-    public class ExpressDataViewHolder extends RecyclerView.ViewHolder {
+    class ExpressDataViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_view_description)
         TextView mTextViewDescription;
         @BindView(R.id.text_view_zone)
@@ -61,12 +58,12 @@ public class ExpressDataAdapter extends RecyclerView.Adapter {
         @BindView(R.id.text_view_datetime)
         TextView mTextViewDatetime;
 
-        public ExpressDataViewHolder(View itemView) {
+        ExpressDataViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindHolder(ExpressData data) {
+        void bindHolder(ExpressData data) {
             mTextViewDescription.setText(data.getRemark());
             mTextViewZone.setText(data.getZone());
             mTextViewDatetime.setText(data.getDatetime());
