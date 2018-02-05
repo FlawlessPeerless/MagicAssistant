@@ -50,6 +50,7 @@
         <activity android:label="@string/text_express_check"
             android:name=".ui.ExpressCheckActivity" />
         <activity android:name=".ui.PhoneQueryActivity" />
+        <activity android:name=".ui.WebViewActivity" />
 
         <provider
             android:exported="false"

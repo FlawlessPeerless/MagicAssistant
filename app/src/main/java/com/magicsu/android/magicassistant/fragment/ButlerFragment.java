@@ -85,8 +85,6 @@ public class ButlerFragment extends Fragment {
         }
         addItem(message, ChatListAdapter.VALUE_RIGHT_TEXT);
         mEditMessage.setText("");
-//        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
         String url = "http://op.juhe.cn/robot/code?info="+ message +"&key="+ Constant.JUEH_CHAT_ROBORT_KEY;
         RxVolley.get(url, new HttpCallback() {
             @Override
