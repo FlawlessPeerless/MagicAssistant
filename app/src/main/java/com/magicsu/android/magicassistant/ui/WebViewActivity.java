@@ -2,6 +2,7 @@ package com.magicsu.android.magicassistant.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -72,13 +73,18 @@ public class WebViewActivity extends BaseActivity {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                L.i(url);
+                Uri linkUrl = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    linkUrl = request.getUrl();
                     mIsRedirect = request.isRedirect();
                 }
+
                 L.i("is redirect = " + mIsRedirect);
-                    view.loadUrl(url);
-                 return super.shouldOverrideUrlLoading(view, request);
+                if (linkUrl != null) {
+                    L.i(linkUrl.toString());
+                    view.loadUrl(linkUrl.toString());
+                }
+                return super.shouldOverrideUrlLoading(view, request);
             }
 
 
@@ -92,13 +98,13 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (mIsRedirect) {
+                    L.d("onPageFinished"+ url);
                     view.loadUrl(url);
                     mIsRedirect = false;
                 }
                 // super.onPageFinished(view, url);
 //                view.loadUrl(url);
 //                mWebView.stopLoading();
-                L.d("onPageFinished"+ url);
             }
 
             @Override
