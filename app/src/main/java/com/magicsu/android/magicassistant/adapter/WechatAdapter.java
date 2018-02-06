@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.magicsu.android.magicassistant.R;
 import com.magicsu.android.magicassistant.entity.WechatData;
 import com.magicsu.android.magicassistant.ui.WebViewActivity;
+import com.magicsu.android.magicassistant.util.PicassoUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,6 +80,12 @@ public class WechatAdapter extends RecyclerView.Adapter<WechatAdapter.WechatView
             mData = mDataList.get(position);
             mTextViewTitle.setText(mData.getTitle());
             mTextViewDescription.setText(mData.getSource());
+            // 设置图片
+            if (TextUtils.isEmpty(mData.getFirstImg())) {
+                mImageView.setImageResource(R.mipmap.ic_launcher);
+            } else {
+                PicassoUtil.loadImageViewSize(mContext,mData.getFirstImg(), 300, 150,mImageView);
+            }
         }
 
         @OnClick(R.id.view_group_root)

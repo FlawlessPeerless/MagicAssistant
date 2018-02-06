@@ -1,10 +1,13 @@
 package com.magicsu.android.magicassistant.view;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.transition.TransitionInflater;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,6 +63,28 @@ public class CustomDialog {
             dialogWindow.setAttributes(params);
             dialogWindow.setWindowAnimations(R.style.WindowAnimationTransition);
             setCancelable(false);
+        }
+    }
+
+    public static  PhotoViewDialog createDialog(Context context, View layout) {
+        PhotoViewDialog dialog = new PhotoViewDialog(context);
+        dialog.setContentView(layout);
+        return dialog;
+    }
+
+    public static class PhotoViewDialog extends Dialog {
+        PhotoViewDialog(@NonNull Context context, int themeResId) {
+            super(context, themeResId);
+        }
+
+        PhotoViewDialog(@NonNull Context context) {
+            this(context, R.style.AppTheme_Dialog);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
         }
     }
 }
