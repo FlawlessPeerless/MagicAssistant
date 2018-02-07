@@ -1,6 +1,7 @@
 package com.magicsu.android.magicassistant;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         initData();
         initView();
-
     }
 
     private void initData() {

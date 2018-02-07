@@ -35,5 +35,8 @@ public class Constant {
     // 聚合微信精选app key
     public static final String JUHE_WECHAT_KEY = "78f723dccf85aea324a3cf0daac97f35";
 
+    // 设置 - 是否开启短信服务
+    public static final String SETTING_SMS = "service_sms";
+
 
 }
