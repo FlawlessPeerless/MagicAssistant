@@ -52,5 +52,7 @@
     <string name="hit_phone_query">请输入查询号码</string>
     <string name="hint_input_text">输入文字</string>
     <string name="text_send">发送</string>
+    <string name="setting_text_sms_title">智能短信提醒</string>
+    <string name="setting_text_sms_description">开启之后收到短信将弹框提示</string>
 
 </resources>

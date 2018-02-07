@@ -1,16 +1,25 @@
 package com.magicsu.android.magicassistant.util;
 
+import android.app.ActivityManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.magicsu.android.magicassistant.service.SmsService;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 /**
  * project: MagicAssistant
@@ -59,5 +68,21 @@ public class UtilTool {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         imageView.setImageBitmap(bitmap);
+    }
+
+    /**
+     * 检测指定的服务是否正在运行
+     * @param context 上下文
+     * @param serviceName 服务名
+     * @return pending intent
+     */
+    @Nullable
+    public static PendingIntent isServiceRunning(Context context, String serviceName) {
+        // String packageName = "com.magicsu.android.magicassistant.service.";
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager == null)
+            return null;
+        ComponentName componentName = new ComponentName("com.magicsu.android.magicassistant", "com.magicsu.android.magicassistant.service.SmsService");
+        return activityManager.getRunningServiceControlPanel(componentName);
     }
 }

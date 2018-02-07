@@ -1,9 +1,12 @@
 package com.magicsu.android.magicassistant.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +38,7 @@ public class WebViewActivity extends BaseActivity {
     ProgressBar mProgressBar;
     @BindView(R.id.web_view)
     WebView mWebView;
+    private boolean mIsRedirect = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,30 +70,52 @@ public class WebViewActivity extends BaseActivity {
         settings.setUseWideViewPort(true); //将图片调整到适合webview的大小
         settings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
-        // 清缓存和记录，缓存引起的白屏
-//        mWebView.clearCache(true);
-//        mWebView.clearHistory();
-
         mWebView.loadUrl(url);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不另跳浏览器
-                // 在2.3上面不加这句话，可以加载出页面，在4.0上面必须要加入，不然出现白屏
-                if (url.startsWith("http://") || url.startsWith("https://")) {
-                    view.loadUrl(url);
-                    mWebView.stopLoading();
-                    return true;
+                Uri linkUrl = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    linkUrl = request.getUrl();
+                    mIsRedirect = request.isRedirect();
                 }
-                return false;
+
+                L.i("is redirect = " + mIsRedirect);
+                if (linkUrl != null) {
+                    L.i(linkUrl.toString());
+                    view.loadUrl(linkUrl.toString());
+                }
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+
+
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                L.d("onPageStarted");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (mIsRedirect) {
+                    L.d("onPageFinished"+ url);
+                    view.loadUrl(url);
+                    mIsRedirect = false;
+                }
+                // super.onPageFinished(view, url);
+//                view.loadUrl(url);
+//                mWebView.stopLoading();
             }
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//                super.onReceivedSslError(view, handler, error);
                 handler.proceed();
             }
         });
         mWebView.setWebChromeClient(new WebChromeClient() {
+
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
@@ -97,6 +123,7 @@ public class WebViewActivity extends BaseActivity {
                 }
                 super.onProgressChanged(view, newProgress);
             }
+
         });
 
     }
