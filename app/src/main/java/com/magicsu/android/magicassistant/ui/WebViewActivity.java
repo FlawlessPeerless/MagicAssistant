@@ -52,6 +52,7 @@ public class WebViewActivity extends BaseActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String url = intent.getStringExtra("url");
+        L.i(url);
         getSupportActionBar().setTitle(title);
 
         WebSettings settings = mWebView.getSettings();
