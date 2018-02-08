@@ -54,5 +54,7 @@
     <string name="text_send">发送</string>
     <string name="setting_text_sms_title">智能短信提醒</string>
     <string name="setting_text_sms_description">开启之后收到短信将弹框提示</string>
+    <string name="setting_gesture_description">设置手势锁密码</string>
+    <string name="setting_gesture_title">手势锁</string>
 
 </resources>

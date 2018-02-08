@@ -16,10 +16,6 @@
     </style>
 
     <!--dialog 动画-->
-    <style name="pop_anim_style">
-        <item name="android:windowEnterAnimation" >@anim/pop_in</item>
-        <item name="android:windowExitAnimation">@anim/pop_out</item>
-    </style>
 
     <!--dialog 主题-->
     <style name="AppTheme.Dialog" parent="@android:style/Theme.Dialog">
