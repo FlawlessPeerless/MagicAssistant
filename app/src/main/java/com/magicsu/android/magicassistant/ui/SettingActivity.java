@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 
 import com.magicsu.android.magicassistant.R;
@@ -30,6 +31,9 @@ import butterknife.OnClick;
 public class SettingActivity extends BaseActivity {
     @BindView(R.id.switch_sms)
     Switch mSmsSwitch;
+    @BindView(R.id.button_set_gesture_lock)
+    LinearLayout mLinearLayoutGesture;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,5 +56,10 @@ public class SettingActivity extends BaseActivity {
         } else {
             stopService(service);
         }
+    }
+
+    @OnClick(R.id.button_set_gesture_lock)
+    void goToGestureLockView() {
+        startActivity(new Intent(this, GestureLockActivity.class));
     }
 }
